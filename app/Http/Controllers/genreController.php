@@ -7,7 +7,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class genreController extends Controller
+class GenreController extends Controller
 {
     /**
      * Display a listing of the resource.

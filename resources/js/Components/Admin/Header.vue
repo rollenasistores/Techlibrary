@@ -54,7 +54,7 @@ import Breadcrumb from '@/Components/Admin/Breadcrumb.vue';
                 <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg p-2 dark:bg-neutral-900 dark:border dark:border-neutral-700" aria-labelledby="hs-dropdown-with-header">
                   <div class="py-3 px-5 -m-2 bg-gray-100 rounded-t-lg dark:bg-neutral-800">
                     <p class="text-sm text-gray-500 dark:text-neutral-400">Signed in as</p>
-                    <p class="text-sm font-medium text-gray-800 dark:text-neutral-300">james@site.com</p>
+                    <p class="text-sm font-medium text-gray-800 dark:text-neutral-300"> {{ $page.props.auth.user.email }}</p>
                   </div>
                   <div class="mt-2 py-2 first:pt-0 last:pb-0">
                     <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300" href="#">

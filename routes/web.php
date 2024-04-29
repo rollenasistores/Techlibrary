@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\genreController;
+use App\Http\Controllers\GenreController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,7 +20,8 @@ Route::get('/admin/dashboard', function () {
     ->name('admin.dashboard');
 
 Route::resource('admin/books', BookController::class)->middleware('admin');
-Route::resource('admin/genres', genreController::class)->middleware('admin');
+Route::resource('admin/genres', GenreController::class)->middleware('admin');
+Route::resource('admin/authors', AuthorController::class)->middleware('admin');
 
 
 Route::middleware([
