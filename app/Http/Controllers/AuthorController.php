@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Models\Author;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class BookController extends Controller
+class AuthorController extends Controller
 {
-    
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $books = Book::all();
-        
-        return inertia('admin/books/index', compact('books'));
+        //
     }
 
     /**
@@ -38,7 +34,7 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show(Author $author)
     {
         //
     }
@@ -46,7 +42,7 @@ class BookController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Book $book)
+    public function edit(Author $author)
     {
         //
     }
@@ -54,7 +50,7 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, Author $author)
     {
         //
     }
@@ -62,7 +58,7 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $book)
+    public function destroy(Author $author)
     {
         //
     }

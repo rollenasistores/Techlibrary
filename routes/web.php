@@ -1,11 +1,10 @@
 <?php
 
 use App\Http\Controllers\BookController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\genreController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -15,11 +14,13 @@ Route::get('/', function () {
 });
 
 Route::get('/admin/dashboard', function () {
-    return Inertia::render('admin');
-})->middleware('auth','verified','admin')
-->name('admin.dashboard');
+    return Inertia::render('admin/dashboard');
+})->middleware('auth', 'verified', 'admin')
+    ->name('admin.dashboard');
 
-Route::resource('books', BookController::class);
+Route::resource('admin/books', BookController::class)->middleware('admin');
+Route::resource('admin/genres', genreController::class)->middleware('admin');
+
 
 Route::middleware([
     'auth:sanctum',
@@ -28,14 +29,11 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
 
-        if(Auth::user()->user_role == 1) {
+        if (Auth::user()->user_role == 1) {
             return redirect()->route('admin.dashboard');
-        }else {
+        } else {
             return Inertia::render('Dashboard');
         }
-
-
-
 
     })->name('dashboard');
 });
