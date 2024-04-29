@@ -96,7 +96,7 @@ class GenreController extends Controller
             $department = Genre::find($id);
             $department->delete();
 
-            session()->now('message', 'Successfully Deleted a Genre!');
+            session()->now('message', 'Successfully deleted a Genre!');
 
             Inertia::share('flash', function () {
                 return [
