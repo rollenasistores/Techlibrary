@@ -24,6 +24,8 @@ export default {
         return {
             form: {
                 name: '',
+                description: '',
+                image_url: null,
                 publication_year: '',
                 author_id: '',
                 genre_id: '',
@@ -34,6 +36,12 @@ export default {
         }
     },
     methods: {
+        selectFile(event) {
+            // `files` is always an array because the file input may be in multiple mode
+            this.form.image_url = event.target.files[0];
+
+            console.log(this.form.image_url)
+        },
         submitForm() {
             this.$inertia.post('/admin/books', this.form, {
                 onSuccess: () => {
@@ -52,7 +60,17 @@ export default {
                         const $toast = useToast();
                         $toast.error(errors.name);
                     }
-                    
+
+                    if (errors.image_url != null) {
+                        const $toast = useToast();
+                        $toast.error(errors.image_url);
+                    }
+
+                    if (errors.description != null) {
+                        const $toast = useToast();
+                        $toast.error(errors.description);
+                    }
+
                     if (errors.publication_year != null) {
                         const $toast = useToast();
                         $toast.error("The Publication Year is required");
@@ -78,6 +96,7 @@ export default {
                     this.errors = errors.response.data.errors;
                 },
             });
+
         }
     },
     computed: {
@@ -93,7 +112,7 @@ export default {
                 value: genre.id,
             }));
         },
-        
+
     }
 }
 
@@ -110,13 +129,39 @@ export default {
             <!-- Card -->
             <div
                 class="mt-5 p-4 relative z-10 bg-white border rounded-xl sm:mt-10 md:p-10 dark:bg-gray-800 dark:border-gray-700">
-                <form @submit.prevent="submitForm">
+                <form enctype="multipart/form-data" @submit.prevent="submitForm" >
+                    <div class="mb-4 sm:mb-8">
+                        <label for="books-name" class="block mb-2 text-sm font-medium dark:text-white">Book
+                            Image</label>
+                                <label class="block">
+                                    <span class="sr-only">Choose profile photo</span>
+                                    <input type="file" @change="selectFile" class="block w-full text-sm text-gray-500 p-3 border rounded-lg
+                                  file:me-4 file:py-2 file:px-4
+                                  file:rounded-lg file:border-0
+                                  file:text-sm file:font-semibold
+                                  file:bg-green-600 file:text-white
+                                  hover:file:bg-green-700
+                                  file:disabled:opacity-50 file:disabled:pointer-events-none
+                                  dark:text-neutral-500
+                                  dark:file:bg-green-500
+                                  dark:hover:file:bg-green-400
+                                " >
+                                </label>
+                    </div>
                     <div class="mb-4 sm:mb-8">
                         <label for="authors-name" class="block mb-2 text-sm font-medium dark:text-white">Book
                             Title</label>
                         <input type="text" id="authors-name" v-model="form.name"
                             class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-green-500 focus:ring-green-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
                             placeholder="John Doe">
+                    </div>
+
+                    <div class="mb-4 sm:mb-8">
+                        <label for="authors-name" class="block mb-2 text-sm font-medium dark:text-white">Book
+                            Description</label>
+                        <textarea type="text" id="authors-name" v-model="form.description"
+                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-green-500 focus:ring-green-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+                        </textarea>
                     </div>
 
                     <div class="mb-4 sm:mb-8">
@@ -144,8 +189,8 @@ export default {
                     <div class="mb-4 sm:mb-8">
                         <label for="quantity" class="block mb-2 text-sm font-medium dark:text-white">Quantity</label>
                         <input type="number" id="quantity" v-model="form.quantity"
-                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-green-500 focus:ring-green-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                        placeholder="Number of Copies">
+                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-green-500 focus:ring-green-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                            placeholder="Number of Copies">
                     </div>
 
                     <div class="mt-6 grid">

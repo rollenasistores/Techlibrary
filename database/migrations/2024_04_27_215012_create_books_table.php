@@ -27,6 +27,8 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('description');
+            $table->text('image_url');
             $table->unsignedBigInteger('author_id');
             $table->unsignedBigInteger('genre_id');
             $table->unsignedSmallInteger('publication_year')->nullable();

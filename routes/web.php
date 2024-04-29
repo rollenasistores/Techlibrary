@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\photoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -13,6 +14,11 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
     ]);
 });
+
+
+Route::get('storage/{filename}', [photoController::class, 'show'])->name('photo.show');
+
+
 
 Route::get('/admin/dashboard', function () {
     return Inertia::render('admin/dashboard');

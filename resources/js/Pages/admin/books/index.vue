@@ -22,6 +22,13 @@ const options = {
 
 const columns = [
     {
+        data: 'image_url',
+        title: 'Book Image',
+        render: function (data) {
+        return `<img src="${route('photo.show', data)}" alt="Book Image">`;
+        }
+    },
+    {
         data: 'name',
         title: 'Book Name',
     },
@@ -158,7 +165,7 @@ export default {
                         </div>
                     </div>
                 </div>  
-            <DataTable class="display" :columns="columns" :data="books" ref="myDataTable">
+            <DataTable class="display" :columns="columns" :data="books" :options ref="myDataTable">
 
             </DataTable>
 

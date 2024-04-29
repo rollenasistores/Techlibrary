@@ -42,11 +42,29 @@ class BookController extends Controller
             'name' => 'required',
             'author_id' => 'required',
             'genre_id' => 'required',
+            'image_url' => 'required|file|image',
+            'description' => 'required',
             'publication_year' => 'required',
             'quantity' => 'required',
         ]);
 
-        Book::create($request->all());
+        // ...or just move it somewhere else (eg: local `storage` directory or S3)
+        $newPath = $request['image_url']->store('', 'local');
+
+        $book = new Book();
+
+        // Set the attributes
+        $book->name = $request->name;
+        $book->author_id = $request->author_id;
+        $book->genre_id = $request->genre_id;
+        $book->description = $request->description;
+        $book->publication_year = $request->publication_year;
+        $book->quantity = $request->quantity;
+        $book->image_url = $newPath;
+        
+        // Save the book
+        $book->save();
+
 
         session()->flash('message', 'Added new Book!');
 
