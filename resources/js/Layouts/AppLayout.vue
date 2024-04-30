@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue';
+
+import { onMounted } from 'vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import Banner from '@/Components/Banner.vue';
@@ -11,6 +13,11 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 defineProps({
     title: String,
 });
+
+onMounted(() => {
+  window.HSStaticMethods.autoInit();
+});
+
 
 
 const showingNavigationDropdown = ref(false);
@@ -68,8 +75,8 @@ export default {
                                     Dashboard
                                 </NavLink>
 
-                                <NavLink :href="route('books.index')" :active="route().current('books.index')" v-if="$page.props.auth.user.user_role == 1">
-                                    Book Management
+                                <NavLink :href="route('books')" :active="route().current('books')" >
+                                    Books 
                                 </NavLink>
                             </div>
                         </div>
@@ -212,6 +219,9 @@ export default {
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                            Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('books')" :active="route().current('books')">
                             Dashboard
                         </ResponsiveNavLink>
                     </div>

@@ -34,8 +34,6 @@ class Book extends Model
         return $this->hasMany(Copy::class);
     }
 
-    
-
     /**
      * Get the Author that owns the Book
      *

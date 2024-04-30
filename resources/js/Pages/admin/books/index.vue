@@ -25,7 +25,7 @@ const columns = [
         data: 'image_url',
         title: 'Book Image',
         render: function (data) {
-        return `<img src="${route('photo.show', data)}" alt="Book Image">`;
+            return `<img src="${route('photo.show', data)}" alt="Book Image" class="h-auto w-16">`;
         }
     },
     {
@@ -33,9 +33,19 @@ const columns = [
         title: 'Book Name',
     },
     {
+        data: 'description',
+        title: 'Description',
+        render: function (data) {
+            // Truncate the description to 120 characters
+            return data.length > 120 ? data.substr(0, 120) + '...' : data;
+        }
+    },
+    {
         data: 'author.name',
         title: 'Author Name',
     },
+
+
     {
         data: 'genre.name',
         title: 'Genre Name',
@@ -46,14 +56,19 @@ const columns = [
     },
     {
         data: 'copies',
-        title: 'No. Available Copies',
+        title: 'Availability Status',
         render: function (data) {
-                // Count the number of available copies
-                var availableCount = data.reduce(function (acc, copy) {
-                    return acc + (copy.is_available ? 1 : 0);
-                }, 0);
-                return availableCount;
-            }
+            // Count the number of available copies
+            var availableCount = data.reduce(function (acc, copy) {
+                return acc + (copy.is_available ? 1 : 0);
+            }, 0);
+
+            var notAvailableCount = data.reduce(function (acc, copy) {
+                return acc + (copy.is_available ? 0 : 1);
+            }, 0);
+
+            return `${availableCount} / ${notAvailableCount}`;
+        }
     },
     {
         data: 'id',
@@ -155,16 +170,16 @@ export default {
     <div class="w-full lg:ps-64">
         <div class="p-4 sm:p-6 space-y-4 sm:space-y-6">
             <div class="py-2">
-                    <div class="-m-1.5 overflow-x-auto">
-                        <div class="grid justify-between float-right pl-2 items-center text-center">
-                            <!-- Button -->
-                            <Link href="/admin/books/create"
-                                class="py-2  px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                            <PencilSquareIcon class="h-5 w-5" />Create
-                            </Link>
-                        </div>
+                <div class="-m-1.5 overflow-x-auto">
+                    <div class="grid justify-between float-right pl-2 items-center text-center">
+                        <!-- Button -->
+                        <Link href="/admin/books/create"
+                            class="py-2  px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                        <PencilSquareIcon class="h-5 w-5" />Create
+                        </Link>
                     </div>
-                </div>  
+                </div>
+            </div>
             <DataTable class="display" :columns="columns" :data="books" :options ref="myDataTable">
 
             </DataTable>

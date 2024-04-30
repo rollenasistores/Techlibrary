@@ -49,7 +49,7 @@ class BookController extends Controller
         ]);
 
         // ...or just move it somewhere else (eg: local `storage` directory or S3)
-        $newPath = $request['image_url']->store('', 'local');
+        $newPath = $request['image_url']->store('public/images', 'local');
 
         $book = new Book();
 
@@ -60,7 +60,7 @@ class BookController extends Controller
         $book->description = $request->description;
         $book->publication_year = $request->publication_year;
         $book->quantity = $request->quantity;
-        $book->image_url = $newPath;
+        $book->image_url = str_replace('public/', '', $newPath);
         
         // Save the book
         $book->save();
@@ -122,7 +122,11 @@ class BookController extends Controller
     }
 
     /**
+     * 
+     * 
      * Remove the specified resource from storage.
+     * 
+     * 
      */
     public function destroy($id)
     {
@@ -149,4 +153,21 @@ class BookController extends Controller
 
         }
     }
+
+    /**
+     * 
+     * 
+     * User Function wherein they'll be able to get a specific book they want to see
+     * 
+     * 
+     */
+
+     public function showBook($id) {
+        $books = Book::with('author', 'genre', 'copies')->find($id);
+        
+        $booksOfAuthor = Book::get()->where('author_id', $books->author_id);
+
+        return inertia('user/books/show', compact('books','booksOfAuthor'));
+     }
+
 }

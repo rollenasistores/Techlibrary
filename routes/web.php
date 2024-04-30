@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
-use App\Http\Controllers\photoController;
+use App\Models\Book;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,10 +15,17 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('storage/{filename}', )->name('photo.show');
 
-Route::get('storage/{filename}', [photoController::class, 'show'])->name('photo.show');
+Route::get('/books', function () {
+    $books = Book::with('author', 'genre', 'copies')->get();
+    return Inertia::render('user/books/index', compact('books'));
+})->middleware('auth', 'verified')
+    ->name('books');
 
-
+Route::get('/books/{id}', [BookController::class, 'showBook'])
+    ->middleware('auth', 'verified')
+    ->name('public.books.show');
 
 Route::get('/admin/dashboard', function () {
     return Inertia::render('admin/dashboard');
@@ -28,7 +35,6 @@ Route::get('/admin/dashboard', function () {
 Route::resource('admin/books', BookController::class)->middleware('admin');
 Route::resource('admin/genres', GenreController::class)->middleware('admin');
 Route::resource('admin/authors', AuthorController::class)->middleware('admin');
-
 
 Route::middleware([
     'auth:sanctum',
