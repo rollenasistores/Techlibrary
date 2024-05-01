@@ -33,8 +33,13 @@ export default {
                     this.$emit('created');
 
                     const $toast = useToast();
-                    $toast.success(this.$page.props.flash.message);
+                    if (!(this.$page.props.flash.message == null)) {
 
+                        $toast.success(this.$page.props.flash.message);
+
+                    } else {
+                        $toast.error(this.$page.props.flash.error);
+                    }
                 },
                 onError: (errors) => {
                     // Handle error, set errors object, etc.
@@ -119,7 +124,7 @@ export default {
                 <!-- End Card -->
             </div>
         </div>
-        <Footer/>
+        <Footer />
     </AppLayout>
 
 </template>

@@ -57,6 +57,7 @@ return new class extends Migration
             $table->string('code');
             $table->timestamp('borrowed_at')->nullable();
             $table->timestamp('returned_at')->nullable();
+            $table->boolean('confirmed')->default(0);
             $table->timestamps();
         
             // Define foreign key constraints

@@ -64,16 +64,13 @@ export default {
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('books')">
                                     <ApplicationMark class="block h-9 w-auto" />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
-                                </NavLink>
 
                                 <NavLink :href="route('books')" :active="route().current('books')" >
                                     Books 
@@ -81,6 +78,9 @@ export default {
                                 
                                 <NavLink :href="route('public.books.borrowed')" :active="route().current('public.books.borrowed')" >
                                     Borrowed Books 
+                                </NavLink>
+                                <NavLink :href="route('public.printing')" :active="route().current('public.printing')" >
+                                    Printing Service
                                 </NavLink>
                             </div>
                         </div>
@@ -228,8 +228,11 @@ export default {
                         <ResponsiveNavLink :href="route('books')" :active="route().current('books')">
                             Books
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('books')" :active="route().current('books')">
+                        <ResponsiveNavLink :href="route('public.books.borrowed')" :active="route().current('public.books.borrowed')">
                             Borrowed Books
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('public.printing')" :active="route().current('public.printing')">
+                            Printing Service
                         </ResponsiveNavLink>
                     </div>
 

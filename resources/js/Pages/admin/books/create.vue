@@ -40,7 +40,6 @@ export default {
             // `files` is always an array because the file input may be in multiple mode
             this.form.image_url = event.target.files[0];
 
-            console.log(this.form.image_url)
         },
         submitForm() {
             this.$inertia.post('/admin/books', this.form, {

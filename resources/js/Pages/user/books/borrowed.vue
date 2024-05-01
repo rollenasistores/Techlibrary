@@ -26,15 +26,25 @@ const columns = [
         title: 'Book Name',
     },
     {
-        data: 'id',
-        title: 'Action',
+        data: 'borrowed_at',
+        title: 'Borrowed Date',
+
+    },
+    {
+        data: 'returned_at',
+        title: 'Returning Date',
+
+    },
+    {
+        data: 'confirmed',
+        title: 'Book Name',
         render: function (data) {
-            const editUrl = `/admin/books/${data}/edit`;
-
-            const deleteButton = `<a class=" delete-button pr-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#" :href="" data-id="${data}">Delete</a>`;
-
-            return `<div><a href="${editUrl}" class="pr-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Edit</a>${deleteButton}</div>`;
-        },
+            if(data == 1) {
+                return '<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border border-teal-500 text-teal-500">Returned</span>';
+            }else {
+                return '<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border border-red-500 text-red-500">Not Returned</span>'
+            }
+        }
     },
 ];
 

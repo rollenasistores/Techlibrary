@@ -12,6 +12,8 @@ class Borrow extends Model
     use HasFactory;
 
 
+    protected $fillable = ['confirmed','returned_at'];
+
     /**
      * Get all of the copy for the Borrow
      *
@@ -20,5 +22,15 @@ class Borrow extends Model
     public function copy(): BelongsTo
     {
         return $this->belongsTo(Copy::class, 'copy_id', 'id');
+    }
+
+    /**
+     * Get the user that owns the Borrow
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

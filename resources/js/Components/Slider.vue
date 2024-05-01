@@ -13,13 +13,13 @@
         <div class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
           <!-- Item -->
           <div class="hs-carousel-slide">
-            <div class="h-[30rem] md:h-[calc(100vh-106px)]  flex flex-col bg-[url('https://images.unsplash.com/photo-1615615228002-890bb61cac6e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center bg-no-repeat">
+            <div class="h-[30rem] md:h-[calc(100vh-106px)]  flex flex-col bg-[url('https://wallpapercrafter.com/desktop/215762-the-interior-of-a-vast-libraryimpressive-library-c.jpg')] bg-cover bg-center bg-no-repeat">
               <div class="mt-auto w-2/3 md:max-w-lg ps-5 pb-5 md:ps-10 md:pb-10">
-                <span class="block text-white">Nike React</span>
-                <span class="block text-white text-xl md:text-3xl">Rewriting sport's playbook for billions of athletes</span>
+                <span class="block text-white text-2xl">Tech Library</span>
+                <span class="block text-white text-md md:text-sm">is a digital platform that simplifies book reservations, borrowing, and printing services for students. It offers diverse materials with extensive search capabilities, a virtual book club, and a book progress tracker. Additionally, TechLibrary includes a printing service, sending timely reminders for book returns and promoting student engagement through book reviews.</span>
                 <div class="mt-5">
-                  <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl bg-white border border-transparent text-black hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none" href="#">
-                    Read Case Studies
+                  <a :href="route('aboutus')" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl bg-white border border-transparent text-black hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none" href="#">
+                    About Us
                   </a>
                 </div>
               </div>
@@ -27,31 +27,16 @@
           </div>
           <!-- End Item -->
   
-          <!-- Item -->
-          <div class="hs-carousel-slide">
-            <div class="h-[30rem] md:h-[calc(100vh-106px)]  flex flex-col bg-[url('https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=3542&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center bg-no-repeat">
-              <div class="mt-auto w-2/3 md:max-w-lg ps-5 pb-5 md:ps-10 md:pb-10">
-                <span class="block text-white">CoolApps</span>
-                <span class="block text-white text-xl md:text-3xl">From mobile apps to gaming consoles</span>
-                <div class="mt-5">
-                  <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl bg-white border border-transparent text-black hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none" href="#">
-                    Read Case Studies
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- End Item -->
   
           <!-- Item -->
           <div class="hs-carousel-slide">
-            <div class="h-[30rem] md:h-[calc(100vh-106px)]  flex flex-col bg-[url('https://images.unsplash.com/photo-1629666451094-8908989cae90?q=80&w=3464&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center bg-no-repeat">
+            <div class="h-[30rem] md:h-[calc(100vh-106px)]  flex flex-col bg-[url('https://wallpaperaccess.com/full/253418.jpg')] bg-cover bg-center bg-no-repeat">
               <div class="mt-auto w-2/3 md:max-w-lg ps-5 pb-5 md:ps-10 md:pb-10">
-                <span class="block text-white">Grumpy</span>
-                <span class="block text-white text-xl md:text-3xl">Bringing Art to everything</span>
+                <span class="block text-white">TechLibrary Printing Service</span>
+                <span class="block text-white text-md md:text-sm">Just upload your file, and we'll take care of the rest. Enjoy hassle-free printing with TechLibrary Printing Service.</span>
                 <div class="mt-5">
-                  <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl bg-white border border-transparent text-black hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none" href="#">
-                    Read Case Studies
+                  <a :href="route('public.printing.create')" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl bg-white border border-transparent text-black hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none" href="#">
+                    Print Now
                   </a>
                 </div>
               </div>

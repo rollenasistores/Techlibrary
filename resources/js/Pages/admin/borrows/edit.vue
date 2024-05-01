@@ -2,8 +2,8 @@
 
 import Sidebar from '@/Components/Admin/Sidebar.vue'
 import Header from '@/Components/Admin/Header.vue'
-
 import { useToast } from 'vue-toast-notification';
+
 
 
 </script>
@@ -13,17 +13,19 @@ export default {
     props: {
         errors: Object,
         auth: Object,
+        borrows: Object,
     },
     data() {
         return {
             form: {
-                name: '',
+                name: this.borrows.user.name,
+                code: '',
             }
         }
     },
     methods: {
         submitForm() {
-            this.$inertia.post('/admin/genres', this.form, {
+            this.$inertia.put(`/admin/borrows/${this.borrows.id}`, this.form, {
                 onSuccess: () => {
                     // Handle success, emit event, etc.
                     this.$emit('created');
@@ -42,19 +44,9 @@ export default {
                     // Handle error, set errors object, etc.
                     console.error('Error submitting form:', errors);
 
-                    if (errors.name != null) {
+                    if (errors.code != null) {
                         const $toast = useToast();
-                        $toast.error(errors.name);
-                    }
-
-                    if (errors.user_id != null) {
-                        const $toast = useToast();
-                        $toast.error(errors.user_id);
-                    }
-
-                    if (errors.description != null) {
-                        const $toast = useToast();
-                        $toast.error(errors.description);
+                        $toast.error(errors.code);
                     }
 
                     this.errors = errors.response.data.errors;
@@ -79,11 +71,19 @@ export default {
                 class="mt-5 p-4 relative z-10 bg-white border rounded-xl sm:mt-10 md:p-10 dark:bg-gray-800 dark:border-gray-700">
                 <form @submit.prevent="submitForm">
                     <div class="mb-4 sm:mb-8">
-                        <label for="Department-name" class="block mb-2 text-sm font-medium dark:text-white">Genre
+                        <label for="student-name" class="block mb-2 text-sm font-medium dark:text-white">Student
                             Name</label>
-                        <input type="text" id="Department-name" v-model="form.name"
+                        <input type="text" id="student-name" v-model="form.name"
                             class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-green-500 focus:ring-green-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                            placeholder="Genre Name">
+                            placeholder="Returning Code" disabled>
+                    </div>
+
+                    <div class="mb-4 sm:mb-8">
+                        <label for="Department-name" class="block mb-2 text-sm font-medium dark:text-white">Returning
+                            Code</label>
+                        <input type="text" id="Department-name" v-model="form.code"
+                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-green-500 focus:ring-green-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                            placeholder="4DFO2OPQE">
                     </div>
 
                     <div class="mt-6 grid">

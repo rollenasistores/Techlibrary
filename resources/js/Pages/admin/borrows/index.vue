@@ -22,18 +22,49 @@ const options = {
 
 const columns = [
     {
-        data: 'name',
-        title: 'Author Name',
+        data: 'code',
+        title: 'Borrow Code',
+    },
+    {
+        data: 'user.name',
+        title: 'Student Name',
+    },
+    {
+        data: 'user.studentID',
+        title: 'Student Number',
+    },
+    {
+        data: 'copy.book.name',
+        title: 'Book Name',
+    },
+    {
+        data: 'borrowed_at',
+        title: 'Borrowed Date',
+    },
+    {
+        data: 'returned_at',
+        title: 'Returning Date',
+    },
+    {
+        data: 'confirmed',
+        title: 'Return Confirmation',
+        render: function (data) {
+            if (data == 0) {
+                return '<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">Not Confirmed</span>';
+            } else {
+                return '<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">Confirmed</span>';
+            }
+        }
+
     },
     {
         data: 'id',
         title: 'Action',
         render: function (data) {
-            const editUrl = `/admin/authors/${data}/edit`;
+            const editUrl = `/admin/borrows/${data}/edit`;
 
-            const deleteButton = `<a class=" delete-button pr-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#" :href="" data-id="${data}">Delete</a>`;
 
-            return `<div><a href="${editUrl}" class="pr-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Edit</a>${deleteButton}</div>`;
+            return `<div><a href="${editUrl}" class="pr-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">CONFIRM RETURN</a></div>`;
         },
     },
 ];
@@ -45,7 +76,7 @@ const columns = [
 export default {
 
     props: {
-        authors: {
+        borrows: {
             type: Array,
         }
     },
@@ -124,18 +155,8 @@ export default {
 
     <div class="w-full lg:ps-64">
         <div class="p-4 sm:p-6 space-y-4 sm:space-y-6">
-            <div class="py-2">
-                    <div class="-m-1.5 overflow-x-auto">
-                        <div class="grid justify-between float-right pl-2 items-center text-center">
-                            <!-- Button -->
-                            <Link href="/admin/authors/create"
-                                class="py-2  px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                            <PencilSquareIcon class="h-5 w-5" />Create
-                            </Link>
-                        </div>
-                    </div>
-                </div>  
-            <DataTable class="display" :columns="columns" :data="authors" ref="myDataTable">
+
+            <DataTable class="display" :columns="columns" :data="borrows" ref="myDataTable">
 
             </DataTable>
 
