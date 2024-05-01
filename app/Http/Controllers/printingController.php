@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Printing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class printingController extends Controller
 {
@@ -96,25 +97,31 @@ class printingController extends Controller
         return inertia('user/services/create');
     }
 
-    public function userPrintingStore(request $request)
+    public function userPrintingStore(Request $request)
     {
-
         $request->validate([
             'file_name' => 'required|mimes:pdf,doc,docx',
         ]);
-
-        $newPath = $request['file_name']->store('public/files', 'local');
-
+    
+        $originalFileName = $request->file('file_name')->getClientOriginalName(); // Get the original file name
+        $extension = $request->file('file_name')->getClientOriginalExtension(); // Get the file extension
+        $randomString = Str::random(10); // Generate a random string (you can adjust the length as needed)
+    
+        $newFileName = pathinfo($originalFileName, PATHINFO_FILENAME) . '_' . $randomString . '.' . $extension; // Append random string to file name
+    
+        $newPath = $request->file('file_name')->storeAs('public/files', $newFileName, 'local'); // Store with modified file name
+    
         $printing = new Printing();
-
+    
         $printing->user_id = auth()->user()->id;
         $printing->file_name = str_replace('public/', '', $newPath);
-
+    
         $printing->save();
-
+    
         session()->flash('message', 'Printing is on pending!');
-
+    
         return redirect()->route('public.printing')->with('message', session('message'));
-
     }
+    
+
 }

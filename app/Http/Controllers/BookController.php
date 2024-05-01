@@ -189,42 +189,41 @@ class BookController extends Controller
         ]);
 
         // Check if the user has already borrowed the same book
-        $existingBorrow = Borrow::where('user_id', $request->user_id)
+        $existingBorrow = Borrow::where('user_id', auth()->user()->id)
             ->where('copy_id', $request->copy_id)
             ->where('confirmed', 0)
             ->exists();
 
-        if ($existingBorrow == true) {
+        if ($existingBorrow) {
 
             session()->flash('error', 'You have already borrowed this book.');
 
-            return redirect()->route('public.books.borrowed')->with('error', session('error'));
-
-        } else {
-
-            $code = Str::random(8); // Generates a random string of 8 characters
-
-            $borrow = new Borrow();
-
-            // Set the attributes
-            $borrow->user_id = $request->user_id;
-            $borrow->borrowed_at = $request->borrowed_at;
-            $borrow->returned_at = $request->returned_at;
-            $borrow->copy_id = $request->copy_id;
-            $borrow->code = $code;
-
-            // Save the book
-            $borrow->save();
-
-            $copy = Copy::find($request->copy_id);
-
-            $copy->update(['is_available' => 0]);
-
-            session()->flash('message', 'You\'ve borrowed a book!');
-
-            return redirect()->route('books.index')->with('message', session('message'));
+            return redirect()->route('books')->with('error', session('error'));
 
         }
+
+        $code = Str::random(8); // Generates a random string of 8 characters
+
+        $borrow = new Borrow();
+
+        // Set the attributes
+        $borrow->user_id = $request->user_id;
+        $borrow->borrowed_at = $request->borrowed_at;
+        $borrow->returned_at = $request->returned_at;
+        $borrow->copy_id = $request->copy_id;
+        $borrow->code = $code;
+
+        // Save the book
+        $borrow->save();
+
+        $copy = Copy::find($request->copy_id);
+
+        $copy->update(['is_available' => 0]);
+
+        session()->flash('message', 'Added new Book!');
+
+        return redirect()->route('books')->with('message', session('message'));
+
 
     }
 

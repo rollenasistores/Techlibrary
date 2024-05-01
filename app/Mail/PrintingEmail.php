@@ -8,16 +8,15 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Mail\Mailables\Address;
 
-class TargetDateEmail extends Mailable
+class PrintingEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(private string $title, private string  $body)
+    public function __construct()
     {
         //
     }
@@ -28,7 +27,7 @@ class TargetDateEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Reminder: Book Return Request',
+            subject: 'Printing Email',
         );
     }
 
@@ -38,11 +37,7 @@ class TargetDateEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.return-email',
-            with: [
-                'title' => $this->title,
-                'body' => $this->body,
-            ],
+            view: 'view.name',
         );
     }
 

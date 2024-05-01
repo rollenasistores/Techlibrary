@@ -18,6 +18,7 @@ export default {
         return {
             form: {
                 name: this.books.name,
+                book_id: this.books.id,
                 user_id: this.auth.user.id,
                 returned_at: '',
                 borrowed_at: '',
@@ -56,7 +57,6 @@ export default {
                     }
 
 
-                    this.errors = errors.response.data.errors;
                 },
             });
 
