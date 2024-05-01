@@ -54,6 +54,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('copy_id');
+            $table->string('code');
             $table->timestamp('borrowed_at')->nullable();
             $table->timestamp('returned_at')->nullable();
             $table->timestamps();

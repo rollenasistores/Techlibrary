@@ -12,7 +12,7 @@ class BorrowController extends Controller
      */
     public function index()
     {
-        return inertia('admin/borrow/index');
+        return inertia('admin/borrows/index');
     }
 
     /**

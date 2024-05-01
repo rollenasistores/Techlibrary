@@ -31,7 +31,7 @@ export default {
 </script>
 
 <template>
-    <AppLayout title="Dashboard">
+    <AppLayout title="Borrow a Book">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Borrow a Book
@@ -62,7 +62,7 @@ export default {
                                     </a>
 
                                     <a v-if="countAvailableCopies(books) > 0" class="inline-flex items-center gap-x-1.5 text-sm decoration-2 hover:underline dark:text-blue-500 border p-2 rounded-lg bg-blue-500 text-white"
-                                    :href="route('books')">
+                                    :href="route('public.books.borrow', books.id)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"

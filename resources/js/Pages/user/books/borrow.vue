@@ -1,0 +1,125 @@
+<script setup>
+import AppLayout from '@/Layouts/AppLayout.vue';
+import Footer from '@/Components/Footer.vue';
+
+import { useToast } from 'vue-toast-notification';
+</script>
+<script>
+export default {
+
+    props: {
+        errors: Object,
+        auth: Object,
+        books: Object,
+        authors: Object,
+        genres: Object,
+    },
+    data() {
+        return {
+            form: {
+                name: this.books.name,
+                user_id: this.auth.user.id,
+                returned_at: '',
+                borrowed_at: '',
+                copy_id: this.books.copies[0].id,
+            },
+        }
+    },
+    methods: {
+        submitForm() {
+            this.$inertia.post('/public/books/borrow/store', this.form, {
+                onSuccess: () => {
+                    // Handle success, emit event, etc.
+                    this.$emit('created');
+
+                    const $toast = useToast();
+                    $toast.success(this.$page.props.flash.message);
+
+                },
+                onError: (errors) => {
+                    // Handle error, set errors object, etc.
+                    console.error('Error submitting form:', errors);
+
+                    if (errors.returned_at != null) {
+                        const $toast = useToast();
+                        $toast.error(errors.returned_at);
+                    }
+
+                    if (errors.borrowed_at != null) {
+                        const $toast = useToast();
+                        $toast.error(errors.borrowed_at);
+                    }
+
+
+                    this.errors = errors.response.data.errors;
+                },
+            });
+
+        }
+    }
+}
+</script>
+
+
+<template>
+
+    <AppLayout title="Borrow a Book">
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Borrow a Book
+            </h2>
+        </template>
+
+        <div class="max-w-[85rem] px-4 py-4 sm:px-6 lg:px-8 lg:py-4 mx-auto">
+            <div class="mx-auto max-w-2xl">
+                <!-- Card -->
+                <div
+                    class="mt-5 p-4 relative z-10 bg-white border rounded-xl sm:mt-10 md:p-10 dark:bg-gray-800 dark:border-gray-700">
+                    <form enctype="multipart/form-data" @submit.prevent="submitForm">
+
+                        <div class="mb-4 sm:mb-8">
+                            <label for="authors-name" class="block mb-2 text-sm font-medium dark:text-white">Book
+                                Title</label>
+                            <input type="text" id="authors-name" v-model="form.name"
+                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-green-500 focus:ring-green-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                                placeholder="John Doe" disabled>
+                        </div>
+
+                        <div class="mb-4 sm:mb-8">
+                            <label for="authors-name" class="block mb-2 text-sm font-medium dark:text-white">Book
+                                ID</label>
+                            <input type="text" id="authors-name" v-model="form.copy_id"
+                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-green-500 focus:ring-green-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                                placeholder="John Doe" disabled>
+                        </div>
+
+
+                        <div class="mb-4 sm:mb-8">
+                            <label for="borrowed-date" class="block mb-2 text-sm font-medium dark:text-white">Borrowing
+                                Date</label>
+                            <input type="date" id="borrowed-date" v-model="form.borrowed_at"
+                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-green-500 focus:ring-green-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                                placeholder="Date">
+                        </div>
+
+                        <div class="mb-4 sm:mb-8">
+                            <label for="borrowed-date" class="block mb-2 text-sm font-medium dark:text-white">Returning
+                                Date</label>
+                            <input type="date" id="borrowed-date" v-model="form.returned_at"
+                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-green-500 focus:ring-green-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                                placeholder="Date">
+                        </div>
+
+                        <div class="mt-6 grid">
+                            <button type="submit"
+                                class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- End Card -->
+            </div>
+        </div>
+        <Footer/>
+    </AppLayout>
+
+</template>

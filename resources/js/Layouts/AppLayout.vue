@@ -78,6 +78,10 @@ export default {
                                 <NavLink :href="route('books')" :active="route().current('books')" >
                                     Books 
                                 </NavLink>
+                                
+                                <NavLink :href="route('public.books.borrowed')" :active="route().current('public.books.borrowed')" >
+                                    Borrowed Books 
+                                </NavLink>
                             </div>
                         </div>
 
@@ -222,7 +226,10 @@ export default {
                             Dashboard
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('books')" :active="route().current('books')">
-                            Dashboard
+                            Books
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('books')" :active="route().current('books')">
+                            Borrowed Books
                         </ResponsiveNavLink>
                     </div>
 

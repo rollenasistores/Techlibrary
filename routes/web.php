@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\GenreController;
 use App\Models\Book;
 use Illuminate\Support\Facades\Auth;
@@ -23,9 +24,19 @@ Route::get('/books', function () {
 })->middleware('auth', 'verified')
     ->name('books');
 
+Route::get('/books/borrowed', [BookController::class, 'userBorrowedBook'])
+    ->middleware('auth', 'verified')
+    ->name('public.books.borrowed');
+
 Route::get('/books/{id}', [BookController::class, 'showBook'])
     ->middleware('auth', 'verified')
     ->name('public.books.show');
+
+Route::get('/books/borrow/{id}', [BookController::class, 'borrowBook'])
+    ->middleware('auth', 'verified')
+    ->name('public.books.borrow');
+
+Route::post('public/books/borrow/store', [BookController::class, 'borrowBookStore'])->name('public.books.borrow.store');
 
 Route::get('/admin/dashboard', function () {
     return Inertia::render('admin/dashboard');
@@ -35,6 +46,7 @@ Route::get('/admin/dashboard', function () {
 Route::resource('admin/books', BookController::class)->middleware('admin');
 Route::resource('admin/genres', GenreController::class)->middleware('admin');
 Route::resource('admin/authors', AuthorController::class)->middleware('admin');
+Route::resource('admin/borrows', BorrowController::class)->middleware('admin');
 
 Route::middleware([
     'auth:sanctum',

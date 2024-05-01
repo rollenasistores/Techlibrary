@@ -1,10 +1,6 @@
 <script setup>
-import Sidebar from '@/Components/Admin/Sidebar.vue'
-import Header from '@/Components/Admin/Header.vue'
+import AppLayout from '@/Layouts/AppLayout.vue';
 import { useToast } from 'vue-toast-notification';
-
-import { PencilSquareIcon } from '@heroicons/vue/24/solid'
-import { Link } from '@inertiajs/vue3'
 
 import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net';
@@ -22,14 +18,18 @@ const options = {
 
 const columns = [
     {
-        data: 'name',
-        title: 'Author Name',
+        data: 'code',
+        title: 'Borrow Code',
+    },
+    {
+        data: 'copy.book.name',
+        title: 'Book Name',
     },
     {
         data: 'id',
         title: 'Action',
         render: function (data) {
-            const editUrl = `/admin/authors/${data}/edit`;
+            const editUrl = `/admin/books/${data}/edit`;
 
             const deleteButton = `<a class=" delete-button pr-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#" :href="" data-id="${data}">Delete</a>`;
 
@@ -45,7 +45,7 @@ const columns = [
 export default {
 
     props: {
-        authors: {
+        books: {
             type: Array,
         }
     },
@@ -56,17 +56,17 @@ export default {
 
     methods: {
 
-        editAuthor(id) {
+        editBook(id) {
             // Construct the route URL using the category ID
-            const route = `/admin/authors/${id}/edit`;
+            const route = `/admin/books/${id}/edit`;
 
             // Navigate to the edit route using Inertia's visit method
             this.$inertia.visit(route);
         },
 
-        deleteAuthor(id) {
+        deleteBook(id) {
 
-            this.$inertia.delete(`/admin/authors/${id}`, {
+            this.$inertia.delete(`/admin/books/${id}`, {
                 onSuccess: () => {
 
                     // Handle success, show notification, etc.
@@ -83,14 +83,14 @@ export default {
 
 
                     // Redirect to another page if needed
-                    this.$inertia.visit('/admin/authors');
+                    this.$inertia.visit('/admin/books');
 
                 },
 
 
                 onError: (error) => {
                     // Handle error, show error message, etc.
-                    console.error('Error deleting Author:', error);
+                    console.error('Error deleting Books:', error);
                 },
 
             });
@@ -104,7 +104,7 @@ export default {
                 dataTable.querySelector('tbody').addEventListener('click', (event) => {
                     if (event.target.classList.contains('delete-button')) {
                         const id = event.target.dataset.id;
-                        this.deleteAuthor(id);
+                        this.deleteBook(id);
                     }
                 });
             });
@@ -114,35 +114,26 @@ export default {
 }
 
 </script>
-
 <template>
-    <Header />
+    <AppLayout title="Dashboard">
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Dashboard
+            </h2>
+        </template>
 
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
+                    <DataTable class="display" :columns="columns" :data="books" :options ref="myDataTable">
 
-    <Sidebar />
-
-
-    <div class="w-full lg:ps-64">
-        <div class="p-4 sm:p-6 space-y-4 sm:space-y-6">
-            <div class="py-2">
-                    <div class="-m-1.5 overflow-x-auto">
-                        <div class="grid justify-between float-right pl-2 items-center text-center">
-                            <!-- Button -->
-                            <Link href="/admin/authors/create"
-                                class="py-2  px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                            <PencilSquareIcon class="h-5 w-5" />Create
-                            </Link>
-                        </div>
-                    </div>
-                </div>  
-            <DataTable class="display" :columns="columns" :data="authors" ref="myDataTable">
-
-            </DataTable>
-
+                    </DataTable>
+                </div>
+            </div>
         </div>
-    </div>
-
+    </AppLayout>
 </template>
+
 <style>
 @import 'datatables.net-dt';
 @import 'datatables.net-responsive-dt';

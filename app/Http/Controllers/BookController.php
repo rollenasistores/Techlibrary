@@ -4,22 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Borrow;
+use App\Models\Copy;
 use App\Models\Genre;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class BookController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $books = Book::with('author','genre','copies')->get();
-        
+        $books = Book::with('author', 'genre', 'copies')->get();
+
         return inertia('admin/books/index', compact('books'));
     }
 
@@ -28,7 +30,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        $authors = Author::get()->select('id','name');
+        $authors = Author::get()->select('id', 'name');
         $genres = Genre::get();
         return inertia('admin/books/create', compact('authors', 'genres'));
     }
@@ -61,10 +63,9 @@ class BookController extends Controller
         $book->publication_year = $request->publication_year;
         $book->quantity = $request->quantity;
         $book->image_url = str_replace('public/', '', $newPath);
-        
+
         // Save the book
         $book->save();
-
 
         session()->flash('message', 'Added new Book!');
 
@@ -86,7 +87,7 @@ class BookController extends Controller
     public function edit($id)
     {
         $books = Book::find($id);
-        $authors = Author::get()->select('id','name');
+        $authors = Author::get()->select('id', 'name');
         $genres = Genre::get();
         return inertia('admin/books/edit', compact('books', 'authors', 'genres'));
     }
@@ -96,7 +97,6 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-
 
         $genres = Book::find($id);
 
@@ -122,11 +122,11 @@ class BookController extends Controller
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * Remove the specified resource from storage.
-     * 
-     * 
+     *
+     *
      */
     public function destroy($id)
     {
@@ -155,19 +155,79 @@ class BookController extends Controller
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * User Function wherein they'll be able to get a specific book they want to see
-     * 
-     * 
+     *
+     *
      */
 
-     public function showBook($id) {
+    public function showBook($id)
+    {
         $books = Book::with('author', 'genre', 'copies')->find($id);
-        
-        $booksOfAuthor = Book::get()->where('author_id', $books->author_id);
 
-        return inertia('user/books/show', compact('books','booksOfAuthor'));
-     }
+        $booksOfAuthor = Book::get()->where('author_id', $books->author_id)->whereNotIn('id', $id);
 
+        return inertia('user/books/show', compact('books', 'booksOfAuthor'));
+    }
+
+    public function borrowBook($id)
+    {
+        $books = Book::with('copies')->find($id);
+
+        return inertia('user/books/borrow', compact('books'));
+
+    }
+
+    public function borrowBookStore(Request $request)
+    {
+        $request->validate([
+            'borrowed_at' => 'required|date',
+            'returned_at' => 'required|date|after_or_equal:borrowed_at|before_or_equal:' . now()->addWeek()->format('Y-m-d'),
+        ], [
+            'returned_at.before_or_equal' => 'The return date must be within one week from the borrowing date.',
+        ]);
+
+        // Check if the user has already borrowed the same book
+        $existingBorrow = Borrow::where('user_id', $request->user_id)
+            ->where('copy_id', $request->copy_id)
+            ->whereNotNull('returned_at')
+            ->exists();
+
+        if ($existingBorrow) {
+
+            session()->flash('message', 'You have already borrowed this book.');
+
+            return redirect()->back()->with('message', session('message'));
+        }
+
+        $code = Str::random(8); // Generates a random string of 8 characters
+
+        $borrow = new Borrow();
+
+        // Set the attributes
+        $borrow->user_id = $request->user_id;
+        $borrow->borrowed_at = $request->borrowed_at;
+        $borrow->returned_at = $request->returned_at;
+        $borrow->copy_id = $request->copy_id;
+        $borrow->code = $code;
+
+        // Save the book
+        $borrow->save();
+
+        $copy = Copy::find($request->copy_id);
+
+        $copy->update(['is_available' => 0]);
+
+        session()->flash('message', 'You\'ve borrowed a book!');
+
+        return redirect()->route('books.index')->with('message', session('message'));
+    }
+    
+    public function userBorrowedBook() {
+
+        $books = Borrow::with('copy', 'copy.book')->where('user_id', auth()->user()->id)->get();
+
+        return inertia('user/books/borrowed', compact('books'));
+    }
 }
