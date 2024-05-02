@@ -5,11 +5,13 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\printingController;
+use App\Mail\ReturnBookEmail;
 use App\Models\Book;
 use App\Models\Borrow;
 use App\Models\Printing;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
