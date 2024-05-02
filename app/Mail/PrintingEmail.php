@@ -16,7 +16,7 @@ class PrintingEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(private $studentName, private $file_name, private $status )
     {
         //
     }
@@ -27,7 +27,7 @@ class PrintingEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Printing Email',
+            subject: 'Printing Service Status',
         );
     }
 
@@ -37,7 +37,8 @@ class PrintingEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.printing-email',
+            with: ['studentName' => $this->studentName,'file_name' => $this->file_name,'status' => $this->status],
         );
     }
 

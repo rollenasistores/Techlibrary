@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PrintingEmail;
 use App\Models\Printing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class printingController extends Controller
@@ -69,6 +71,8 @@ class printingController extends Controller
         ]);
 
         $printing->update(['status' => $request->status]);
+
+        Mail::to($printing->user->email)->send(new PrintingEmail($printing->user->name, $printing->file_name, $request->status));
 
         session()->flash('message', 'Printing Status updated successfully!');
 
