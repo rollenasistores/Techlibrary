@@ -56,7 +56,33 @@ onMounted(() => {
               </div>
             </div>
             <!-- End Card -->
+            
           </div>
+          <!-- Card -->
+          <div class="p-4 relative z-10 bg-white border rounded-xl md:p-10 dark:bg-neutral-900 dark:border-neutral-800">
+            <h3 class="text-xl font-bold text-gray-800 dark:text-neutral-200">Student Inquiry</h3>
+            <div class="text-sm text-gray-500 dark:text-neutral-500">Every student needs!</div>
+
+            <div class="mt-5">
+              <span class="text-6xl font-bold text-gray-800 dark:text-neutral-200">₱ 00</span>
+              <span class="text-lg font-bold text-gray-800 dark:text-neutral-200">.00</span>
+            </div>
+
+            <div class="mt-5 grid sm:grid-cols-2 gap-y-2 py-4 first:pt-0 last:pb-0 sm:gap-x-6 sm:gap-y-0">
+            </div>
+
+            <div class="mt-5 grid grid-cols-2 gap-x-4 py-4 first:pt-0 last:pb-0">
+              <div>
+                <p class="text-sm text-gray-500 dark:text-neutral-500">Don't Worry.</p>
+                <p class="text-sm text-gray-500 dark:text-neutral-500">We're always here for you.</p>
+              </div>
+
+              <div class="flex justify-end">
+                <a type="button" :href="route('public.printing.create')" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-800">Inquiries</a>
+              </div>
+            </div>
+          </div>
+          <!-- End Card -->
         </div>
         <!-- End Grid -->
   

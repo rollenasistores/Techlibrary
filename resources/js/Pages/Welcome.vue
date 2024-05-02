@@ -27,6 +27,7 @@ function handleImageError() {
 
   <Books />
 
+  <hr class="border-4"/>
   <!-- FAQ -->
   <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
     <!-- Grid -->
@@ -219,6 +220,7 @@ function handleImageError() {
     <!-- End Grid -->
   </div>
   <!-- End FAQ -->
+  
   <!-- Contact -->
   <div class="max-w-7xl px-4 lg:px-6 py-12 lg:py-24 mx-auto">
     <div class="mb-6 sm:mb-10 max-w-2xl text-center mx-auto">

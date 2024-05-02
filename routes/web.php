@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BorrowController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\printingController;
 use App\Mail\ReturnBookEmail;
@@ -57,6 +58,10 @@ Route::get('/books/borrow/{id}', [BookController::class, 'borrowBook'])
 
 Route::post('public/books/borrow/store', [BookController::class, 'borrowBookStore'])->name('public.books.borrow.store');
 
+Route::post('public/contact', [ContactController::class, 'store'])->name('public.contact');
+
+
+
 Route::get('/printing/services', [printingController::class, 'userPrinting'])
     ->middleware('auth', 'verified')
     ->name('public.printing');
@@ -68,6 +73,7 @@ Route::get('/printing/create', [printingController::class, 'userPrintingCreate']
     Route::post('/printing/store', [printingController::class, 'userPrintingStore'])
     ->middleware('auth', 'verified')
     ->name('public.printing.store');
+    
 
 
 Route::get('/admin/dashboard', function () {
