@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
+
 class Admin
 {
     /**
@@ -13,15 +14,19 @@ class Admin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next) {
+    public function handle(Request $request, Closure $next)
+    {
 
 
-        if(Auth::user()->user_role != 1) {
-            return redirect()->route('dashboard');
+
+        if (Auth::check()) {
+            if (Auth::user()->user_role != 1) {
+                return redirect()->route('dashboard');
+            }
+        } else {
+            return redirect()->route('login');
         }
-
-        return $next($request);
-
+        
 
     }
 }
