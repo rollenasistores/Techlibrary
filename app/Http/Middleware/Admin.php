@@ -18,7 +18,6 @@ class Admin
     {
 
 
-
         if (Auth::check()) {
             if (Auth::user()->user_role != 1) {
                 return redirect()->route('dashboard');
@@ -26,6 +25,8 @@ class Admin
         } else {
             return redirect()->route('login');
         }
+
+        return $next($request);
         
 
     }
