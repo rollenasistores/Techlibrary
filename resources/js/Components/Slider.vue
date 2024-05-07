@@ -13,7 +13,7 @@
         <div class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
           <!-- Item -->
           <div class="hs-carousel-slide">
-            <div class="h-[30rem] md:h-[calc(100vh-106px)]  flex flex-col bg-[url('https://wallpapercrafter.com/desktop/215762-the-interior-of-a-vast-libraryimpressive-library-c.jpg')] bg-cover bg-center bg-no-repeat">
+            <div class="h-[30rem] md:h-[calc(100vh-106px)]  flex flex-col bg-[url('/carousel1.jpg')] bg-cover bg-center bg-no-repeat">
               <div class="mt-auto w-2/3 md:max-w-lg ps-5 pb-5 md:ps-10 md:pb-10">
                 <span class="block text-white text-2xl">Tech Library</span>
                 <span class="block text-white text-md md:text-sm">is a digital platform that simplifies book reservations, borrowing, and printing services for students. It offers diverse materials with extensive search capabilities, a virtual book club, and a book progress tracker. Additionally, TechLibrary includes a printing service, sending timely reminders for book returns and promoting student engagement through book reviews.</span>
@@ -30,7 +30,7 @@
   
           <!-- Item -->
           <div class="hs-carousel-slide">
-            <div class="h-[30rem] md:h-[calc(100vh-106px)]  flex flex-col bg-[url('https://wallpaperaccess.com/full/253418.jpg')] bg-cover bg-center bg-no-repeat">
+            <div class="h-[30rem] md:h-[calc(100vh-106px)]  flex flex-col bg-[url('/carousel2.jpg')] bg-cover bg-center bg-no-repeat">
               <div class="mt-auto w-2/3 md:max-w-lg ps-5 pb-5 md:ps-10 md:pb-10">
                 <span class="block text-white">TechLibrary Printing Service</span>
                 <span class="block text-white text-md md:text-sm">Just upload your file, and we'll take care of the rest. Enjoy hassle-free printing with TechLibrary Printing Service.</span>
