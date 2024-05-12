@@ -37,10 +37,12 @@ const columns = [
     },
     {
         data: 'confirmed',
-        title: 'Book Name',
+        title: 'Status',
         render: function (data) {
             if(data == 1) {
                 return '<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border border-teal-500 text-teal-500">Returned</span>';
+            }else if(data == 3) {
+                return '<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border border-red-500 text-red-500">OVERDUE</span>'
             }else {
                 return '<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border border-red-500 text-red-500">Not Returned</span>'
             }

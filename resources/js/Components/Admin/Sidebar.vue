@@ -26,7 +26,10 @@ onMounted(() => {
       <!-- Logo -->
       <a class="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-none focus:opacity-80"
         :href="route('dashboard')" aria-label="Preline">
-        TechLibrary
+        <div class="flex items-center">
+          <img src="/logo.png" class="w-12 mr-2" alt="Logo">
+          <span class="text-sm text-custom-blue hover:text-custom-blue-dark mt-2">TechLibrary</span>
+      </div>
       </a>
       <!-- End Logo -->
     </div>

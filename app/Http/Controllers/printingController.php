@@ -68,11 +68,12 @@ class printingController extends Controller
 
         $request->validate([
             'status' => 'required',
+            'location' => 'required',
         ]);
 
-        $printing->update(['status' => $request->status]);
+        $printing->update(['status' => $request->status, ['location'=> $request->location]]);
 
-        Mail::to($printing->user->email)->send(new PrintingEmail($printing->user->name, $printing->file_name, $request->status));
+        Mail::to($printing->user->email)->queue(new PrintingEmail($printing->user->name, $printing->file_name, $request->status));
 
         session()->flash('message', 'Printing Status updated successfully!');
 

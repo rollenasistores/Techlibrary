@@ -30,6 +30,11 @@ const columns = [
         title: 'Student ID',
     },
     {
+        data: 'location',
+        title: 'Location',
+        
+    },
+    {
         data: 'file_name',
         title: 'File Upload',
         render: function (data) {
@@ -38,29 +43,22 @@ const columns = [
             return `<a href='${url}' class='inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-800/30 dark:text-blue-500'>Download File</a>`;
         }
     },
-
     {
-        data: 'status',
+        data: null,
         title: 'Status',
         render: function (data) {
-            if(data == 'pending') {
-                return `<span class='inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-800/30 dark:text-orange-500'>Pending</span>`
-            }else if (data == 'printing') {
-                return `<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">Printing</span>`
+            
+            const editUrl = `/admin/printing/${data.id}/edit`;
+
+            if(data.status == 'pending') {
+                    
+                return `<a class='inline-flex items-center gap-x-1.5 py-1.5 px-3 hover:cursor-pointer rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-800/30 dark:text-orange-500' href="${editUrl}">Pending</a>`
+            }else if (data.status == 'printing') {
+                return `<a class="inline-flex items-center gap-x-1.5 py-1.5 px-3 hover:cursor-pointer  rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500" href="${editUrl}">Printing</a>`
             }else {
-                return `<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-800/30 dark:text-blue-500">Completed</span>`;
+                return `<a class="inline-flex items-center gap-x-1.5 py-1.5 px-3 hover:cursor-pointer  rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-800/30 dark:text-blue-500" href="${editUrl}">Completed</a>`;
             }
         }
-    },
-    {
-        data: 'id',
-        title: 'Action',
-        render: function (data) {
-            const editUrl = `/admin/printing/${data}/edit`;
-
-
-            return `<div><a href="${editUrl}" class="pr-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">UPDATE</a></div>`;
-        },
     },
 ];
 
@@ -149,18 +147,7 @@ export default {
 
 
     <div class="w-full lg:ps-64">
-        <div class="p-4 sm:p-6 space-y-4 sm:space-y-6">
-            <div class="py-2">
-                    <div class="-m-1.5 overflow-x-auto">
-                        <div class="grid justify-between float-right pl-2 items-center text-center">
-                            <!-- Button -->
-                            <Link href="/admin/genres/create"
-                                class="py-2  px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                            <PencilSquareIcon class="h-5 w-5" />Create
-                            </Link>
-                        </div>
-                    </div>
-                </div>  
+        <div class="p-4 sm:p-6 space-y-4 sm:space-y-6 py-2">
             <DataTable class="display" :columns="columns" :data="printing " ref="myDataTable">
 
             </DataTable>

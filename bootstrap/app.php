@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         web: __DIR__.'/../routes/web.php',
         api: __DIR__.'/../routes/api.php',
         commands: __DIR__.'/../routes/console.php',
+        channels: __DIR__.'/../routes/channels.php',
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
@@ -33,10 +34,24 @@ return Application::configure(basePath: dirname(__DIR__))
             ->whereDate('returned_at', today())
             ->get();
         
-            foreach ($borrows as $borrow) {
+            $overdues = Borrow::with('user')->where('confirmed', 0)
+            ->whereDate('returned_at', '<' , today())
+            ->get();
         
-                Mail::to($borrow->user['email'])->send(new ReturnBookEmail($borrow->user['name'], $borrow->returned_at, $borrow->copy->book->name));
+            foreach($overdues as  $overdue) {
+                $student = Borrow::with('user')->find($overdue->id);
+                $student->update(['confirmed' => 3]);
+                Mail::to($student->user['email'])->queue(new ReturnBookEmail($student->user['name'], $student->returned_at, $student->copy->book->name));
             }
+        
+
+            
+
+            foreach ($borrows as $borrow) {
+                Mail::to($borrow->user['email'])->queue(new ReturnBookEmail($borrow->user['name'], $borrow->returned_at, $borrow->copy->book->name));
+            }
+
+
         })->twiceDaily(8, 13);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -3,9 +3,6 @@ import Sidebar from '@/Components/Admin/Sidebar.vue'
 import Header from '@/Components/Admin/Header.vue'
 import { useToast } from 'vue-toast-notification';
 
-import { PencilSquareIcon } from '@heroicons/vue/24/solid'
-import { Link } from '@inertiajs/vue3'
-
 import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net';
 import 'datatables.net-responsive';
@@ -64,7 +61,7 @@ const columns = [
             const editUrl = `/admin/borrows/${data}/edit`;
 
 
-            return `<div><a href="${editUrl}" class="pr-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">CONFIRM RETURN</a></div>`;
+            return `<div><a href="${editUrl}" class="pr-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-custom-blue hover:text-custom-blue-dark disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">CONFIRM RETURN</a></div>`;
         },
     },
 ];

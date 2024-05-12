@@ -19,6 +19,7 @@ export default {
         return {
             form: {
                 status: this.printing.status,
+                location: null,
             }
         }
     },
@@ -40,6 +41,11 @@ export default {
                     if (errors.status != null) {
                         const $toast = useToast();
                         $toast.error(errors.status);
+                    }
+
+                    if (errors.location != null) {
+                        const $toast = useToast();
+                        $toast.error(errors.location);
                     }
 
                     this.errors = errors.response.data.errors;
@@ -73,6 +79,16 @@ export default {
                             <option value="completed">Completed</option>
                         </select>
                     </div>
+                    <div class="mb-4 sm:mb-8">
+                        <label for="authors-name" class="block mb-2 text-sm font-medium dark:text-white">Library Location</label>
+                            <select v-model="form.location"
+                            class="py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                            <option selected="">Open this select menu</option>
+                            <option value="Junior Library">Junior Library</option>
+                            <option value="Senior Library">Senior Library</option>
+                        </select>
+                    </div>
+
 
                     <div class="mt-6 grid">
                         <button type="submit"

@@ -30,7 +30,8 @@ export default {
                 return this.books.filter(book => {
                     const nameMatch = queryTerms.every(v => book.name.toLowerCase().includes(v));
                     const authorMatch = queryTerms.some(v => book.author.name.toLowerCase().includes(v));
-                    return nameMatch || authorMatch;
+                    const genreMatch = queryTerms.some(v => book.genre.name.toLowerCase().includes(v));
+                    return nameMatch || authorMatch || genreMatch;
                 });
             } else {
                 return this.books;
@@ -72,11 +73,11 @@ export default {
                     class="block text-sm text-gray-700 font-medium dark:text-white"><span class="sr-only">Search
                         Book / Author</span></label>
                 <input type="text" v-model.trim="searchQuery" name="hs-search-article-1" id="hs-search-article-1"
-                    class="py-2.5 px-4 block w-full border-transparent rounded-lg focus:border-green-500 focus:ring-green-500 dark:bg-neutral-900 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                    class="py-2.5 px-4 block w-full border-transparent rounded-lg focus:border-custom-blue focus:ring-custom-blue-dark dark:bg-neutral-900 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                     placeholder="Search Book / Author">
             </div>
             <div class="flex-[0_0_auto] ">
-                <a class="size-[46px] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none"
+                <a class="size-[46px] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-custom-blue text-white hover:bg-custom-blue-dark disabled:opacity-50 disabled:pointer-events-none"
                     href="#">
                     <svg class="flex-shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -107,7 +108,7 @@ export default {
                         </div>
                         <div class="mt-4">
                             <span v-if="countAvailableCopies(book) > 0"
-                                class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-green-100 text-green-800 rounded-full dark:bg-red-500/10 dark:text-green-500">
+                                class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-custom-blue text-custom-blue rounded-full dark:bg-red-500/10 dark:text-custom-blue">
                                 <svg class="flex-shrink-0 size-3" xmlns="http://www.w3.org/2000/svg" width="24"
                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

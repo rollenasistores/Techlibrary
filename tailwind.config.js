@@ -16,6 +16,10 @@ export default {
     darkMode: 'class',
     theme: {
         extend: {
+            colors: {
+                'custom-blue':'#22577E',
+                'custom-blue-dark': '#173C58'
+                },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },

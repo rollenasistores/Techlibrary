@@ -161,14 +161,14 @@ export default {
                                 <div>
                                     <label for="hs-firstname-contacts-1" class="sr-only">First Name</label>
                                     <input type="text" v-model="form.firstName" name="hs-firstname-contacts-1" id="hs-firstname-contacts-1"
-                                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-custom-blue focus:ring-custom-blue-dark disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                         placeholder="First Name">
                                 </div>
 
                                 <div>
                                     <label for="hs-lastname-contacts-1" class="sr-only">Last Name</label>
                                     <input type="text" v-model="form.lastName" name="hs-lastname-contacts-1" id="hs-lastname-contacts-1"
-                                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-custom-blue focus:ring-custom-blue-dark disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                         placeholder="Last Name">
                                 </div>
                             </div>
@@ -178,21 +178,21 @@ export default {
                                 <label for="hs-email-contacts-1" class="sr-only">Email</label>
                                 <input type="email" v-model="form.email" name="hs-email-contacts-1" id="hs-email-contacts-1"
                                     autocomplete="email"
-                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-custom-blue focus:ring-custom-blue disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                     placeholder="Email">
                             </div>
 
                             <div>
                                 <label for="hs-phone-number-1" class="sr-only">Phone Number</label>
                                 <input type="text" v-model="form.phoneNumber" name="hs-phone-number-1" id="hs-phone-number-1"
-                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-custom-blue focus:ring-custom-blue disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                     placeholder="Phone Number">
                             </div>
 
                             <div>
                                 <label for="hs-about-contacts-1" class="sr-only">Details</label>
                                 <textarea id="hs-about-contacts-1" v-model="form.details" name="hs-about-contacts-1" rows="4"
-                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                    class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-custom-blue focus:ring-custom-blue disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                     placeholder="Details"></textarea>
                             </div>
                         </div>
@@ -200,7 +200,7 @@ export default {
 
                         <div class="mt-4 grid">
                             <button type="submit"
-                                class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-lime-600 text-white hover:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">Send
+                                class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-custom-blue text-white hover:bg-custom-blue-dark disabled:opacity-50 disabled:pointer-events-none">Send
                                 inquiry</button>
                         </div>
 
