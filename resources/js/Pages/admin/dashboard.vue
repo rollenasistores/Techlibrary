@@ -2,6 +2,8 @@
 import { onMounted } from 'vue';
 import Sidebar from '@/Components/Admin/Sidebar.vue'
 import Header from '@/Components/Admin/Header.vue'
+
+
 onMounted(() => {
   window.HSStaticMethods.autoInit();
 });
@@ -19,30 +21,68 @@ export default {
   },
   data() {
     return {
-      libraryOpen: true,
-      librarianAvailable: true
+      libraryStatus: null,
+      librarianStatus: null
     };
   },
-  computed: {
-    libraryStatus() {
-      return this.libraryOpen ? 'Open' : 'Closed';
-    },
-    librarianStatus() {
-      return this.librarianAvailable ? 'Available' : 'Not Available';
-    },
-    libraryButtonText() {
-      return this.libraryOpen ? 'Close Library' : 'Open Library';
-    },
-    librarianButtonText() {
-      return this.librarianAvailable ? 'Librarian Not Available' : 'Librarian Available';
-    }
+  created() {
+    this.fetchLibraryStatus();
   },
   methods: {
-    toggleLibraryStatus() {
-      this.libraryOpen = !this.libraryOpen;
+    async fetchLibraryStatus() {
+      try {
+        const response = await axios.get('/api/library-status');
+        this.libraryStatus = response.data.library_open ? 'Open' : 'Closed';
+
+        if(this.libraryStatus == 'Open') {
+          this.libraryButtonText = "Closed"
+        }else{
+          this.libraryButtonText = "Open"
+        }
+
+        this.librarianStatus = response.data.librarian_available ? 'Available' : 'Busy';
+
+        if(this.librarianStatus == 'Available') {
+          this.librarianButtonText = "Busy"
+        }else if(this.librarianStatus == 'Busy') {
+          this.librarianButtonText = "Available"
+        }
+
+
+      } catch (error) {
+        console.error('Failed to fetch library status:', error);
+      }
     },
-    toggleLibrarianStatus() {
-      this.librarianAvailable = !this.librarianAvailable;
+    async toggleLibraryStatus() {
+      try {
+        await axios.put('/api/library-status', { library_open: this.libraryStatus === 'Closed' });
+        this.libraryStatus = this.libraryStatus === 'Closed' ? 'Open' : 'Closed';
+
+        if(this.libraryStatus == 'Open') {
+          this.libraryButtonText = "Closed"
+        }else {
+          this.libraryButtonText = "Open"
+        }
+
+      } catch (error) {
+        console.error('Failed to toggle library status:', error);
+      }
+    },
+    async toggleLibrarianStatus() {
+      try {
+        await axios.put('/api/library-status', { librarian_available: this.librarianStatus === 'Busy' });
+        this.librarianStatus = this.librarianStatus === 'Busy' ? 'Available' : 'Busy';
+
+        if(this.librarianStatus == 'Available') {
+          this.librarianButtonText = "Busy"
+        }else if(this.librarianStatus == 'Busy') {
+          this.librarianButtonText = "Available"
+        }
+
+
+      } catch (error) {
+        console.error('Failed to toggle librarian status:', error);
+      }
     }
   }
 }
@@ -278,14 +318,17 @@ export default {
         <div class="border mx-auto p-5 rounded-lg text-custom-blue">
           <h2 class="text-lg font-semibold mb-2">Library Status</h2>
           <p class="text-sm mb-2">Current Status:</p>
-          <p class="text-xs mb-2">Library: <span :class="{'font-semibold': libraryOpen}">{{ libraryStatus }}</span></p>
-          <p class="text-xs mb-2">Librarian: <span :class="{'font-semibold': librarianAvailable}">{{ librarianStatus }}</span></p>
+          <p class="text-xs mb-2">Library: <span :class="{ 'font-semibold': libraryOpen }">{{ libraryStatus }}</span></p>
+          <p class="text-xs mb-2">Librarian: <span :class="{ 'font-semibold': librarianAvailable }">{{ librarianStatus
+              }}</span></p>
         </div>
         <div class="flex justify-center space-x-4">
-          <button @click="toggleLibraryStatus" :class="{'bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded': libraryOpen, 'bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded': !libraryOpen}">
+          <button @click="toggleLibraryStatus"
+            :class="{ 'bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded': libraryButtonText == 'Open', 'bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded': libraryButtonText  == 'Closed'}">
             {{ libraryButtonText }}
           </button>
-          <button @click="toggleLibrarianStatus" :class="{'bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded': librarianAvailable, 'bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded': !librarianAvailable}">
+          <button @click="toggleLibrarianStatus"
+            :class="{ 'bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded': librarianButtonText == 'Available', 'bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded': librarianButtonText == 'Busy' }">
             {{ librarianButtonText }}
           </button>
         </div>

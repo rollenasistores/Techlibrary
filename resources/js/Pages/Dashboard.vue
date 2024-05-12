@@ -4,6 +4,47 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 
 </script>
 
+<script>
+export default {
+    data() {
+        return {
+            libraryStatus: null,
+            librarianStatus: null
+        };
+    },
+    mounted() {
+        this.fetchLibraryStatus();
+    },
+    methods: {
+        async fetchLibraryStatus() {
+            try {
+                const response = await axios.get('/api/library-status');
+                this.libraryStatus = response.data.library_open ? 'Open' : 'Closed';
+
+                if (this.libraryStatus == 'Open') {
+                    this.libraryButtonText = "Closed"
+                } else {
+                    this.libraryButtonText = "Open"
+                }
+
+                this.librarianStatus = response.data.librarian_available ? 'Available' : 'Busy';
+
+                if (this.librarianStatus == 'Available') {
+                    this.librarianButtonText = "Busy"
+                } else if (this.librarianStatus == 'Busy') {
+                    this.librarianButtonText = "Available"
+                }
+
+
+            } catch (error) {
+                console.error('Failed to fetch library status:', error);
+            }
+        },
+    }
+}
+
+</script>
+
 <template>
     <AppLayout title="Dashboard">
         <template #header>
@@ -90,11 +131,11 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                     <div class="border mx-auto p-5 rounded-lg text-custom-blue">
                         <h2 class="text-lg font-semibold mb-2">Library Status</h2>
                         <p class="text-sm mb-2">Current Status:</p>
-                        <p class="text-xs mb-2">Library: <span class="font-semibold">Open</span></p>
-                        <p class="text-xs mb-2">Librarian: <span class="font-semibold">Available</span></p>
+                        <p class="text-xs mb-2">Library: <span class="font-semibold">{{ libraryStatus }}</span></p>
+                        <p class="text-xs mb-2">Librarian: <span class="font-semibold">{{ librarianStatus }}</span></p>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </AppLayout>
