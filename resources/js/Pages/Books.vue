@@ -30,8 +30,7 @@ export default {
                 return this.books.filter(book => {
                     const nameMatch = queryTerms.every(v => book.name.toLowerCase().includes(v));
                     const authorMatch = queryTerms.some(v => book.author.name.toLowerCase().includes(v));
-                    const genreMatch = queryTerms.some(v => book.genre.name.toLowerCase().includes(v));
-                    return nameMatch || authorMatch || genreMatch;
+                    return nameMatch || authorMatch;
                 });
             } else {
                 return this.books;
@@ -57,7 +56,7 @@ export default {
 <template>
 
 
-    <Head title="Welcome" />
+    <Head title="List of Books" />
 
     <Header/>
 

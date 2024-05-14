@@ -25,6 +25,16 @@ const columns = [
 
     },
     {
+        data: 'printing_type',
+        title: 'Printing Type',
+
+    },
+    {
+        data: 'copies',
+        title: 'No. Copies',
+
+    },
+    {
         data: 'location',
         title: 'School Library',
 
@@ -76,7 +86,7 @@ export default {
                             <div class="grid justify-between float-right pl-2 items-center text-center">
                                 <!-- Button -->
                                 <Link href="/printing/create"
-                                    class="py-2  px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                                    class="py-2  px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-custom-blue text-white hover:bg-custom-blue-dark disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                                 <PencilSquareIcon class="h-5 w-5" />Create
                                 </Link>
                             </div>

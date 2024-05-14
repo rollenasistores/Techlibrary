@@ -29,6 +29,19 @@ const columns = [
         data: 'user.studentID',
         title: 'Student ID',
     },
+
+    {
+        data: 'printing_type',
+        title: 'Printing Type',
+
+    },
+    {
+        data: 'copies',
+        title: 'No. Copies',
+
+    },
+
+    
     {
         data: 'location',
         title: 'Location',

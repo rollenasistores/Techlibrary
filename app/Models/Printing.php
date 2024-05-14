@@ -10,7 +10,7 @@ class Printing extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['file_name','user_id','status','location'];
+    protected $fillable = ['file_name','user_id','status','location','printing_type', 'copies'];
     /**
      * Get the user that owns the Printing
      *

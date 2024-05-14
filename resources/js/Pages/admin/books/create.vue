@@ -138,11 +138,11 @@ export default {
                                   file:me-4 file:py-2 file:px-4
                                   file:rounded-lg file:border-0
                                   file:text-sm file:font-semibold
-                                  file:bg-green-600 file:text-white
-                                  hover:file:bg-green-700
+                                  file:bg-custom-blue file:text-white
+                                  hover:file:bg-custom-blue-dark
                                   file:disabled:opacity-50 file:disabled:pointer-events-none
                                   dark:text-neutral-500
-                                  dark:file:bg-green-500
+                                  dark:file:bg-custom-blue
                                   dark:hover:file:bg-green-400
                                 " >
                                 </label>
@@ -151,7 +151,7 @@ export default {
                         <label for="authors-name" class="block mb-2 text-sm font-medium dark:text-white">Book
                             Title</label>
                         <input type="text" id="authors-name" v-model="form.name"
-                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-green-500 focus:ring-green-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-custom-blue focus:ring-custom-blue disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
                             placeholder="John Doe">
                     </div>
 
@@ -159,7 +159,7 @@ export default {
                         <label for="authors-name" class="block mb-2 text-sm font-medium dark:text-white">Book
                             Description</label>
                         <textarea type="text" id="authors-name" v-model="form.description"
-                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-green-500 focus:ring-green-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-custom-blue focus:ring-custom-blue disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
                         </textarea>
                     </div>
 
@@ -167,7 +167,7 @@ export default {
                         <label for="publication-year" class="block mb-2 text-sm font-medium dark:text-white">Publication
                             Year</label>
                         <input type="number" id="publication-year" v-model="form.publication_year"
-                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-green-500 focus:ring-green-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-custom-blue focus:ring-custom-blue disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
                             placeholder="2022">
                     </div>
 
@@ -188,13 +188,13 @@ export default {
                     <div class="mb-4 sm:mb-8">
                         <label for="quantity" class="block mb-2 text-sm font-medium dark:text-white">Quantity</label>
                         <input type="number" id="quantity" v-model="form.quantity"
-                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-green-500 focus:ring-green-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-custom-blue focus:ring-custom-blue disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
                             placeholder="Number of Copies">
                     </div>
 
                     <div class="mt-6 grid">
                         <button type="submit"
-                            class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Submit</button>
+                            class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-custom-blue text-white hover:bg-custom-blue-dark disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Submit</button>
                     </div>
                 </form>
             </div>

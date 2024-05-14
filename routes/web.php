@@ -9,6 +9,7 @@ use App\Http\Controllers\printingController;
 use App\Mail\ReturnBookEmail;
 use App\Models\Book;
 use App\Models\Borrow;
+use App\Models\Genre;
 use App\Models\Printing;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -53,7 +54,7 @@ Route::get('services', function () {
 Route::get('storage/{filename}', )->name('photo.show');
 
 Route::get('/books', function () {
-    $books = Book::with('author', 'genre', 'copies')->get();
+    $books = Genre::with('books', 'books.author', 'books.copies')->get();
     return Inertia::render('user/books/index', compact('books'));
 })->middleware('auth', 'verified')
     ->name('books');

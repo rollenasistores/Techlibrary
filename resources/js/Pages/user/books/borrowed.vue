@@ -127,10 +127,10 @@ export default {
 
 </script>
 <template>
-    <AppLayout title="Dashboard">
+    <AppLayout title="Borrowed Books">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
+                Borrowed Books
             </h2>
         </template>
 

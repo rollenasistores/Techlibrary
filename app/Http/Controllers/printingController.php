@@ -106,6 +106,8 @@ class printingController extends Controller
     {
         $request->validate([
             'file_name' => 'required|mimes:pdf,doc,docx',
+            'printing_type' => 'required',
+            'copies' => 'required',
         ]);
     
         $originalFileName = $request->file('file_name')->getClientOriginalName(); // Get the original file name
@@ -119,6 +121,8 @@ class printingController extends Controller
         $printing = new Printing();
     
         $printing->user_id = auth()->user()->id;
+        $printing->printing_type = $request->printing_type;
+        $printing->copies = $request->copies;
         $printing->file_name = str_replace('public/', '', $newPath);
     
         $printing->save();
