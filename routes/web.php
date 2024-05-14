@@ -54,7 +54,7 @@ Route::get('services', function () {
 Route::get('storage/{filename}', )->name('photo.show');
 
 Route::get('/books', function () {
-    $books = Genre::with('books', 'books.author', 'books.copies')->get();
+    $books = Book::with('author', 'genre', 'copies')->get();
     return Inertia::render('user/books/index', compact('books'));
 })->middleware('auth', 'verified')
     ->name('books');
