@@ -71,7 +71,7 @@ class printingController extends Controller
             'location' => 'required',
         ]);
 
-        $printing->update(['status' => $request->status, ['location'=> $request->location]]);
+        $printing->update(['status' => $request->status, 'location'=> $request->location]);
 
         Mail::to($printing->user->email)->queue(new PrintingEmail($printing->user->name, $printing->file_name, $request->status));
 
@@ -92,8 +92,7 @@ class printingController extends Controller
     public function userPrinting()
     {
 
-        $printings = Printing::get()->where('user_id', auth()->user()->id);
-
+        $printings = Printing::with('user')->where('user_id', auth()->user()->id)->get();        
         return inertia('user/services/index', compact('printings'));
     }
 

@@ -19,7 +19,7 @@ export default {
         return {
             form: {
                 status: this.printing.status,
-                location: null,
+                location: this.printing.location,
             }
         }
     },

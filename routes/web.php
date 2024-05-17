@@ -6,6 +6,7 @@ use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\printingController;
+use App\Http\Controllers\UserController;
 use App\Mail\ReturnBookEmail;
 use App\Models\Book;
 use App\Models\Borrow;
@@ -23,20 +24,6 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
     ]);
 });
-
-Route::get('test', function () {
-    $overdues = Borrow::with('user')->where('confirmed', 0)
-    ->whereDate('returned_at', '<' , today())
-    ->get();
-
-    foreach($overdues as  $overdue) {
-        $student = Borrow::with('user')->find($overdue->id);
-        $student->update(['confirmed' => 3]);
-        Mail::to($student->user['email'])->queue(new ReturnBookEmail($student->user['name'], $student->returned_at, $student->copy->book->name));
-    }
-
-});
-
 
 Route::get('list-of-books', function () {
     $books = Book::with('author', 'genre', 'copies')->get();
@@ -107,6 +94,7 @@ Route::resource('admin/genres', GenreController::class)->middleware('admin');
 Route::resource('admin/authors', AuthorController::class)->middleware('admin');
 Route::resource('admin/borrows', BorrowController::class)->middleware('admin');
 Route::resource('admin/printing', printingController::class)->middleware('admin');
+Route::resource('admin/users', UserController::class)->middleware('admin');
 
 Route::middleware([
     'auth:sanctum',
