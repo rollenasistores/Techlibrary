@@ -48,6 +48,8 @@ const columns = [
         render: function (data) {
             if (data == 0) {
                 return '<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">Not Confirmed</span>';
+            } else if(data == 3) {
+                return '<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-yellow-100 text-white-800 dark:bg-yellow-800/30 dark:text-yellow-500">Overdue</span>';
             } else {
                 return '<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">Confirmed</span>';
             }
@@ -59,7 +61,6 @@ const columns = [
         title: 'Action',
         render: function (data) {
             const editUrl = `/admin/borrows/${data}/edit`;
-
 
             return `<div><a href="${editUrl}" class="pr-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-custom-blue hover:text-custom-blue-dark disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">CONFIRM RETURN</a></div>`;
         },
