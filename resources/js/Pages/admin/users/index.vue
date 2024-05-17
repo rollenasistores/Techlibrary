@@ -128,17 +128,6 @@ export default {
 
     <div class="w-full lg:ps-64">
         <div class="p-4 sm:p-6 space-y-4 sm:space-y-6">
-            <div class="py-2">
-                    <div class="-m-1.5 overflow-x-auto">
-                        <div class="grid justify-between float-right pl-2 items-center text-center">
-                            <!-- Button -->
-                            <Link href="/admin/users/create"
-                                class="py-2  px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-custom-blue text-white hover:bg-custom-blue-dark disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                            <PencilSquareIcon class="h-5 w-5" />Create
-                            </Link>
-                        </div>
-                    </div>
-                </div>  
             <DataTable class="display" :columns="columns" :data="users" ref="myDataTable">
 
             </DataTable>
